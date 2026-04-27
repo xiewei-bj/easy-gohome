@@ -1,0 +1,7 @@
+Package: n2n
+Version: VERS
+Section: base
+Priority: optional
+Architecture: ARCH
+Maintainer: xw_1113@126.com
+Description: supernode and edge from n2n

@@ -1,0 +1,15 @@
+[Unit]
+Description=n2n supernode daemon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/supernode/supernode -p 9994 -t supernode
+KillSignal=SIGTERM
+KillMode=control-group
+Restart=on-failure
+StandardOutput=null
+StandardError=null
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=n2n supernode daemon
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/local/supernode/edge LOCSL_IP_MASK -c cccccccc -k dddddddd -l SUPERNODE_PORT  -d edge0
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

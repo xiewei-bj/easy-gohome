@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>连接配置</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            width: 380px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        #domain {
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        #port {
+            width: 70px;
+            max-width: 70px;
+        }
+
+        input {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #409eff;
+        }
+
+        /* IPv4 输入提示灰色 */
+        #localIp::placeholder {
+            color: #999;
+        }
+
+        .password-box {
+            position: relative;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+            user-select: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-connect {
+            background-color: #409eff;
+            color: white;
+        }
+
+        .btn-connect:hover {
+            background-color: #337ecc;
+        }
+
+        .btn-close {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .btn-close:hover {
+            background-color: #e5e5e5;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 class="title">连接配置</h3>
+
+    <div class="input-row">
+        <input type="text" id="domain" value="expamlp.com" placeholder="域名">
+        <input type="number" id="port" value="9993" placeholder="端口">
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="group" maxlength="16" value="default-group" placeholder="分组(最长16字节)">
+    </div>
+
+    <div class="input-group">
+        <div class="password-box">
+            <input type="password" id="password" placeholder="请输入密码">
+            <span class="eye-icon" onclick="togglePassword()">👁️</span>
+        </div>
+    </div>
+
+    <!-- 新加：本地IPv4输入框 -->
+    <div class="input-group">
+        <input type="text" id="localIp" placeholder="192.168.1.100" maxlength="15">
+    </div>
+
+    <div class="btn-group">
+        <button class="btn-connect" onclick="connect()">连接</button>
+        <button class="btn-close" onclick="closeWindow()">关闭</button>
+    </div>
+</div>
+
+<script>
+    function togglePassword() {
+        const pwdInput = document.getElementById('password');
+        const eyeIcon = document.querySelector('.eye-icon');
+
+        if (pwdInput.type === 'password') {
+            pwdInput.type = 'text';
+            eyeIcon.textContent = '🙈';
+        } else {
+            pwdInput.type = 'password';
+            eyeIcon.textContent = '👁️';
+        }
+    }
+
+    function connect() {
+        const domain = document.getElementById('domain').value;
+        const port = document.getElementById('port').value;
+        const group = document.getElementById('group').value;
+        const password = document.getElementById('password').value;
+        const localIp = document.getElementById('localIp').value;
+
+        const configJson = JSON.stringify({
+            supernode: {
+                ipaddr: domain,
+                port: parseInt(port),  // 端口转数字
+                groupname: group,
+                passwd: password,
+                gateway: localIp      // 你新加的IP对应 gateway
+            }
+        });
+
+        // 调用 Android 方法，接收 boolean 返回值
+        const result = webMessage.connect(configJson);
+        console.log('连接配置：', { domain, port, group, password, localIp });
+        alert('连接配置\n域名：' + domain + '\n端口：' + port + '\n分组：' + group + '\n本地IP：' + localIp);
+    }
+
+    function closeWindow() {
+        webMessage.disconnect();
+    }
+</script>
+</body>
+</html>

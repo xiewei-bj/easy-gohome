@@ -1,0 +1,4 @@
+#!/bin/bash
+/usr/local/n2n/configedge.sh
+systemctl daemon-reload
+exit 0
