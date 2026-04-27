@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "easy-gohome", "easy-gohome.vcxproj", "{9F2AAF8F-769A-4FEF-BF07-84635818DE45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F2AAF8F-769A-4FEF-BF07-84635818DE45}.Debug|x86.ActiveCfg = Debug|Win32
+		{9F2AAF8F-769A-4FEF-BF07-84635818DE45}.Debug|x86.Build.0 = Debug|Win32
+		{9F2AAF8F-769A-4FEF-BF07-84635818DE45}.Release|x86.ActiveCfg = Release|Win32
+		{9F2AAF8F-769A-4FEF-BF07-84635818DE45}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {37EA0019-F7E7-48F5-8A41-E2689117E061}
+	EndGlobalSection
+EndGlobal
